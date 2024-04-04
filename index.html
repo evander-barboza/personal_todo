@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo List</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" href="assets/img/icon.png" type="image/x-icon">
+</head>
+<body>
+
+    <div class="main-background">
+        <div class="main">
+            <div class="header-container">
+                <header>
+                    <h1>ToDo List</h1>
+                    <p>Organize your life!</p>
+                </header>
+            </div>
+
+            <div class="allTasks">
+                <section class="new-list">
+                    <div class="new-list-container">
+                        <input type="text" data-new-list-input placeholder="Enter new task">
+                        <ul data-lists>
+                        </ul>
+                        <button class="btnCreate">Add Task</button>
+                        <button class="btnClear">Clear</button>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const input = document.querySelector('[data-new-list-input]');
+        const list = document.querySelector('[data-lists]');
+
+        document.querySelector('.btnCreate').addEventListener('click', function(event){
+            event.preventDefault();
+            const task = input.value;
+            if(task.trim() === ''){
+                alert('Digite uma tarefa');
+                return;
+            }
+            const li = document.createElement('li');
+            li.innerText = task;
+            list.appendChild(li);
+            input.value = '';
+        });
+
+        document.querySelector('.btnClear').addEventListener('click', function(event){
+            event.preventDefault();
+            list.innerHTML = '';
+        });
+    </script>
+
+</body>
+</html>
