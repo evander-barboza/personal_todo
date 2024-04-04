@@ -15,44 +15,77 @@
                 <header>
                     <h1>ToDo List</h1>
                     <p>Organize your life!</p>
-                </header>
-            </div>
 
-            <div class="allTasks">
-                <section class="new-list">
-                    <div class="new-list-container">
-                        <input type="text" data-new-list-input placeholder="Enter new task">
-                        <ul data-lists>
-                        </ul>
-                        <button class="btnCreate">Add Task</button>
-                        <button class="btnClear">Clear</button>
+                    <div class="date">
+                        <p id="date"></p>
                     </div>
-                </section>
+                
+                <!-- Botão para abrir o início de adicionar tarefas-->
+                <button class="btnStart" onclick="document.querySelector('.allTasks').removeAttribute('hidden')">Start</button>
+                </header>
             </div>
         </div>
     </div>
 
-    <script>
-        const input = document.querySelector('[data-new-list-input]');
-        const list = document.querySelector('[data-lists]');
+    <div class="allTasks" hidden>
+        <div class="allTasks-container">
+            <section class="new-list">
+                <div class="new-list-container">
+                    <div class="main-header-container">
+                        <h2>Tasks</h2>
+                        <button class="btnClose" onclick="document.querySelector('.allTasks').setAttribute('hidden', '')">X</button>
+                    </div>
+                    <!--Preciso separar as atividades por título, categoria e horário -->
+                    <form> 
+                        <h3>Título</h3>
+                        <input type="text" data-new-list-input placeholder="Type your task here">
+                        <h3>Categoria</h3>
+                        <input type="text" data-new-list-input placeholder="Type your category here">
+                        <h3>Horário</h3>
+                        <input type="time" data-new-list-input placeholder="Type your time here">
+                        <button class="btnCreate">Save</button>
+                        <button class="btnClear">Clear</button>
+                        
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
 
-        document.querySelector('.btnCreate').addEventListener('click', function(event){
+    <script>
+
+        const date = new Date();
+        const options = {hour: 'numeric' , weekday: 'long', month: 'long', day: 'numeric'};
+        document.getElementById('date').textContent = date.toLocaleDateString('en-US', options);
+
+        const newTask = document.querySelector('.new-list-container');
+        const input = document.querySelector('[data-new-list-input]');
+        const btnCreate = document.querySelector('.btnCreate');
+        const btnClear = document.querySelector('.btnClear');
+
+        btnCreate.addEventListener('click', function(event){
             event.preventDefault();
             const task = input.value;
-            if(task.trim() === ''){
-                alert('Digite uma tarefa');
-                return;
+            if(task){
+                const taskElement = document.createElement('div');
+                taskElement.classList.add('task');
+                taskElement.innerHTML = task;
+                newTask.appendChild(taskElement);
+                input.value = '';
             }
-            const li = document.createElement('li');
-            li.innerText = task;
-            list.appendChild(li);
+        });
+
+        btnClear.addEventListener('click', function(event){
+            event.preventDefault();
             input.value = '';
         });
 
-        document.querySelector('.btnClear').addEventListener('click', function(event){
-            event.preventDefault();
-            list.innerHTML = '';
-        });
+
+
+
+
+
+
     </script>
 
 </body>
