@@ -8,7 +8,7 @@ let btnAtualizarTarefa = document.querySelector('#btnAtualizarTarefa');
 let idTarefaEdicao = document.querySelector('#idTarefaEdicao');
 let inputTarefaNomeEdicao = document.querySelector('#inputTarefaNomeEdicao');
 
-const API_BASE_URL = 'https://crudcrud.com/api/ad8dbc971802466b8fc26dc754738bfc'; // Substitua YOUR_CRUDCRUD_API_KEY pela sua chave de API
+const API_BASE_URL = 'https://crudcrud.com/api/ad8dbc971802466b8fc26dc754738bfc';
 
 inputNovaTarefa.addEventListener('keypress', (e) => {
     if(e.keyCode == 13) {
