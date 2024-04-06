@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Todo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <div class="conteudo">
+        <h1 class="title">Plan your life!</h1>
+
+        <div class="hour-minutes">
+            <p id="hour"></p>
+        </div>
+        <div class="date">
+            <p id="date"></p>
+        </div>
+
+        <div class="topo">
+            <input type="text" id="inputNovaTarefa" placeholder="Add new task">
+            <button id="btnAddTarefa">
+                <i class="fa fa-plus"></i>
+            </button>
+        </div>
+        <ul class="listaTarefas">
+        </ul>
+<!-- 
+    <button class="btnStart" onclick="document.querySelector('.janelaTarefas').removeAttribute('hidden')">
+            <i class="fa fa-list">Show all tasks</i>
+        </button>
+    </div>
+
+    <div class="janelaTarefas" hidden>
+        <button class="btnClose" onclick="document.querySelector('.janelaTarefas').setAttribute('hidden', '')">X</button>
+        <h2>Tarefas</h2>
+        <hr>
+        <ul class="listarTarefas">
+        </ul>
+    </div> -->
+
+    <div id="janelaEdicao">
+        <button id="janelaEdicaoBtnFechar">
+            <i class="fa fa-remove"></i>
+        </button>
+        <h2 id="idTarefaEdicao">#1021</h2>
+        <hr>
+        <form>
+            <div class="frm-linha">
+                    <label for="nome">Nome</label>
+                    <input type="text" id="inputTarefaNomeEdicao">
+            </div>
+            <div class="frm-linha">
+                <button id="btnAtualizarTarefa">Salvar</button>
+            </div>
+        </form>
+    </div>
+    <div id="janelaEdicaoFundo"></div>
+
+
+    <script src="script.js"></script>
+</body>
+</html>
