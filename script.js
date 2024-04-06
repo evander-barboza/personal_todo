@@ -8,14 +8,15 @@ let btnAtualizarTarefa = document.querySelector('#btnAtualizarTarefa');
 let idTarefaEdicao = document.querySelector('#idTarefaEdicao');
 let inputTarefaNomeEdicao = document.querySelector('#inputTarefaNomeEdicao');
 
-inputNovaTarefa.addEventListener('keypress', (e) => {
+// Endpoint base da API CRUDCRUD.com
+const API_BASE_URL = 'https://crudcrud.com/api/ad8dbc971802466b8fc26dc754738bfc'; // Substitua YOUR_CRUDCRUD_API_KEY pela sua chave de API
 
+inputNovaTarefa.addEventListener('keypress', (e) => {
     if(e.keyCode == 13) {
         let tarefa = {
             nome: inputNovaTarefa.value,
-            id: gerarId(),
         }
-        adicionarTarefa(tarefa);
+        adicionarTarefaAPI(tarefa);
     }
 });
 
@@ -24,12 +25,10 @@ janelaEdicaoBtnFechar.addEventListener('click', (e) => {
 })
 
 btnAddTarefa.addEventListener('click', (e) => {
-
     let tarefa = {
         nome: inputNovaTarefa.value,
-        id: gerarId(),
     }
-    adicionarTarefa(tarefa);
+    adicionarTarefaAPI(tarefa);
 });
 
 btnAtualizarTarefa.addEventListener('click', (e) => {
@@ -39,32 +38,62 @@ btnAtualizarTarefa.addEventListener('click', (e) => {
 
     let tarefa = {
         nome: inputTarefaNomeEdicao.value,
-        id: idTarefa
     }
 
-    let tarefaAtual = document.getElementById('' + idTarefa + '');
-
-    if(tarefaAtual) {
-        let li = criarTagLI(tarefa);
-        listaTarefas.replaceChild(li, tarefaAtual);
-        alternarJanelaEdicao();
-    } 
+    atualizarTarefaAPI(idTarefa, tarefa);
 })
 
-function gerarId() {
-    return Math.floor(Math.random() * 3000);
+function adicionarTarefaAPI(tarefa) {
+    fetch(API_BASE_URL + '/tarefas', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(tarefa),
+    })
+    .then(response => response.json())
+    .then(data => {
+        adicionarTarefaDOM(data);
+        inputNovaTarefa.value = '';
+    })
+    .catch(error => console.error('Erro ao adicionar tarefa:', error));
 }
 
-function adicionarTarefa(tarefa) {
+function carregarTarefasAPI() {
+    fetch(API_BASE_URL + '/tarefas')
+    .then(response => response.json())
+    .then(data => data.forEach(tarefa => adicionarTarefaDOM(tarefa)))
+    .catch(error => console.error('Erro ao carregar tarefas:', error));
+}
+
+function atualizarTarefaAPI(id, tarefa) {
+    fetch(API_BASE_URL + '/tarefas/' + id, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(tarefa),
+    })
+    .then(() => atualizarTarefaDOM(id, tarefa))
+    .catch(error => console.error('Erro ao atualizar tarefa:', error));
+}
+
+function excluirTarefaAPI(id) {
+    fetch(API_BASE_URL + '/tarefas/' + id, {
+        method: 'DELETE',
+    })
+    .then(() => excluirTarefaDOM(id))
+    .catch(error => console.error('Erro ao excluir tarefa:', error));
+}
+
+function adicionarTarefaDOM(tarefa) {
     let li = criarTagLI(tarefa);
     listaTarefas.appendChild(li);
-    inputNovaTarefa.value = '';
 }
 
 function criarTagLI(tarefa) {
-
     let li = document.createElement('li');
-    li.id = tarefa.id
+    li.id = tarefa._id;
 
     let span = document.createElement('span');
     span.classList.add('textoTarefa');
@@ -75,15 +104,16 @@ function criarTagLI(tarefa) {
     let btnEditar = document.createElement('button');
     btnEditar.classList.add('btnAcao');
     btnEditar.innerHTML = '<i class="fa fa-pencil"></i>';
-    btnEditar.setAttribute('onclick', 'editar('+tarefa.id+')');
+    btnEditar.setAttribute('onclick', 'editar("' + tarefa._id + '")');
 
     let btnExcluir = document.createElement('button');
     btnExcluir.classList.add('btnAcao');
     btnExcluir.innerHTML = '<i class="fa fa-trash"></i>';
-    btnExcluir.setAttribute('onclick', 'excluir('+tarefa.id+')');
+    btnExcluir.setAttribute('onclick', 'excluir("' + tarefa._id + '")');
+    btnExcluir.onclick = () => excluirTarefaAPI(tarefa._id);    
 
     div.appendChild(btnEditar);
-    div.appendChild(btnExcluir); 
+    div.appendChild(btnExcluir);
 
     li.appendChild(span);
     li.appendChild(div);
@@ -91,8 +121,7 @@ function criarTagLI(tarefa) {
 }
 
 function editar(idTarefa) {
-
-    let li = document.getElementById('' + idTarefa + '');
+    let li = document.getElementById(idTarefa);
     if(li) {
         idTarefaEdicao.innerHTML = '#' + idTarefa;
         alternarJanelaEdicao();
@@ -101,16 +130,18 @@ function editar(idTarefa) {
     }
 }
 
-function excluir(idTarefa) {
+function atualizarTarefaDOM(idTarefa, tarefa) {
+    let li = document.getElementById(idTarefa);
+    if(li) {
+        li.querySelector('.textoTarefa').innerText = tarefa.nome;
+        alternarJanelaEdicao();
+    }
+}
 
-    let confirmacao = window.confirm('Tem certeza que deseja excluir?');
-    if(confirmacao) {
-        let li = document.getElementById('' + idTarefa + '');
-        if(li) {
-            listaTarefas.removeChild(li);
-        }
-    } else {
-        alert('Elemento HTML não encontrado');
+function excluirTarefaDOM(idTarefa) {
+    let li = document.getElementById(idTarefa);
+    if(li) {
+        listaTarefas.removeChild(li);
     }
 }
 
@@ -119,3 +150,5 @@ function alternarJanelaEdicao() {
     janelaEdicaoFundo.classList.toggle('abrir');
 }
 
+// Inicialização: carregar tarefas ao carregar a página
+window.addEventListener('load', carregarTarefasAPI);

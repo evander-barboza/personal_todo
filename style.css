@@ -5,7 +5,7 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
-    background-color: black;
+    /* background-color: black; */
     margin: 0;
     font-family: "Poppins", sans-serif;
     font-size: 1rem;
@@ -20,7 +20,7 @@ body {
 
 .conteudo {
     width: auto;
-    margin: 100px 50px;
+    margin: auto 50px;
     background-color: #141821bf;
     padding: 35px;
     border-radius: 12px;
