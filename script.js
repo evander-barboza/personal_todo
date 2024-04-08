@@ -1,3 +1,11 @@
+const hour = new Date();
+const optionsHour = {hour: 'numeric', minute: 'numeric'};
+document.getElementById('hour').textContent = hour.toLocaleTimeString('en-US', optionsHour);
+
+const date = new Date();
+const options = {weekday: 'long', month: 'long', day: 'numeric'};
+document.getElementById('date').textContent = date.toLocaleDateString('en-US', options);
+
 let inputNovaTarefa = document.querySelector('#inputNovaTarefa');
 let btnAddTarefa = document.querySelector('#btnAddTarefa');
 let listaTarefas = document.querySelector('#listaTarefas');
