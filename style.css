@@ -26,6 +26,10 @@ body {
     border-radius: 12px;
 }
 
+.time {
+    color: white;
+}
+
 .topo {
     display: flex;
     justify-content: space-between;
