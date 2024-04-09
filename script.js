@@ -68,7 +68,7 @@ function adicionarTarefaAPI(tarefa) {
 
     if (!tarefa.nome.trim()) {
         alert('Por favor, insira um nome para a tarefa.');
-        return; // Retorna sem fazer nada se o nome da tarefa estiver vazio
+        return; 
     }
 
     fetch(API_BASE_URL + '/tarefas', {
@@ -97,7 +97,7 @@ function atualizarTarefaAPI(id, tarefa) {
 
     if (!tarefa.nome.trim()) {
         alert('Por favor, insira um nome para a tarefa.');
-        return; // Retorna sem fazer nada se o nome da tarefa estiver vazio
+        return; 
     }
     
     fetch(API_BASE_URL + '/tarefas/' + id, {
@@ -202,46 +202,36 @@ function alternarJanelaEdicao() {
     janelaEdicaoFundo.classList.toggle('abrir');
 }
 
-// Função para atualizar o horário
 function atualizarHorario() {
     const hour = new Date();
     const optionsHour = { hour: 'numeric', minute: 'numeric' };
     document.getElementById('hour').textContent = hour.toLocaleTimeString('en-US', optionsHour);
 }
 
-// Função para atualizar a data
 function atualizarData() {
     const date = new Date();
     const options = { weekday: 'long', month: 'long', day: 'numeric' };
     document.getElementById('date').textContent = date.toLocaleDateString('en-US', options);
 }
 
-// Chama a função de atualização do horário imediatamente ao carregar a página
 atualizarHorario();
 
-// Agenda a função de atualização do horário para ser chamada a cada minuto (60000 milissegundos)
 setInterval(atualizarHorario, 60000);
 
-// Chama a função de atualização da data imediatamente ao carregar a página
 atualizarData();
 
-// Agenda a função de atualização da data para ser chamada a cada 24 horas (86400000 milissegundos)
 setInterval(atualizarData, 86400000);
 
-// Função para editar uma tarefa
 function editar(idTarefa) {
     let li = document.getElementById(idTarefa);
     if (li) {
-        // Substituir o conteúdo de idTarefaEdicao pelo ID da tarefa
         idTarefaEdicao.innerHTML = '#' + idTarefa;
 
         idTarefaEdicao.style.display = 'none';
 
-        // Preencher o campo de entrada com o nome atual da tarefa
         let nomeTarefa = li.querySelector('.textoTarefa').innerText;
         inputTarefaNomeEdicao.value = nomeTarefa;
 
-        // Exibir a janela de edição
         alternarJanelaEdicao();
     } else {
         alert('Elemento HTML não encontrado');
