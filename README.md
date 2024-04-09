@@ -5,23 +5,25 @@ Este é um aplicativo simples de lista de tarefas (Todo List) desenvolvido em HT
 ## Funcionalidades
 
 - **Adicionar uma Tarefas:** Você pode adicionar novas tarefas digitando no campo de texto e pressionando o botão de adição (`+`).
-- **Marcar uma tarefa como concluída:**
-- **Editar uma Tarefas:** Clicando no ícone , é possível atualizar o nome das tarefas na janela de edição e salvar as alterações.
-- **Excluir uma tarefa:** Clicando no ícone , pode-se excluir uma tarefa.
+- **Marcar uma tarefa como concluída:** Pode-se clicar no checklist para marcá-la como concluida.
+- **Editar uma Tarefa:** Clicando no ícone de lápis, é possível atualizar o nome das tarefas na janela de edição e salvar as alterações.
+- **Excluir uma tarefa:** Clicando no ícone de lixeira, pode-se excluir uma tarefa.
 - **Visualizar Data e Hora:** O aplicativo exibe a hora atual e a data para sua conveniência.
+- **Validações:** O aplicativo mostra um aviso caso tente salvar uma tarefa sem conteúdo, evitando tarefas vazias.
 
 ## Como Usar
 
 1. Clone ou baixe este repositório para sua máquina local.
 2. Abra o arquivo `index.html` em um navegador da web.
-3. Comece a adicionar suas tarefas e gerenciar sua lista!
+3. Você precisará configurar uma instância da API e atualizar a variável API_BASE_URL no arquivo script.js com o URL da sua API.
+4. Comece a adicionar suas tarefas e gerenciar sua lista!
 
 ## Tecnologias Utilizadas
 
 - **HTML:** Para estruturação do conteúdo.
 - **CSS:** Para estilização dos elementos.
 - **JavaScript:** Para funcionalidades interativas.
-- **Fetch API** para comunicação com a API de backend.
+- **Fetch API:** Para comunicação com a API de backend.
 
 ## Autores
 
