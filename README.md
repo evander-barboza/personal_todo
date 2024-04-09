@@ -1,13 +1,14 @@
 # Personal Todo
 
-Este é um aplicativo simples de lista de tarefas (Todo List) desenvolvido em HTML, CSS e JavaScript, projetado para auxiliar na organização das suas atividades diárias.
+Este é um aplicativo simples de lista de tarefas (Todo List) desenvolvido em HTML, CSS e JavaScript, projetado para auxiliar na organização das suas atividades diárias. Ele se integra a uma API de backend para armazenar as tarefas.
 
 ## Funcionalidades
 
-- **Adição de Tarefas:** Você pode adicionar novas tarefas digitando no campo de texto e pressionando o botão de adição (`+`).
-- **Edição de Tarefas:** As tarefas existentes podem ser editadas clicando nelas.
-- **Atualização de Tarefas:** É possível atualizar o nome das tarefas na janela de edição e salvar as alterações.
-- **Visualização de Data e Hora:** O aplicativo exibe a hora atual e a data para sua conveniência.
+- **Adicionar uma Tarefas:** Você pode adicionar novas tarefas digitando no campo de texto e pressionando o botão de adição (`+`).
+- **Marcar uma tarefa como concluída:**
+- **Editar uma Tarefas:** Clicando no ícone , é possível atualizar o nome das tarefas na janela de edição e salvar as alterações.
+- **Excluir uma tarefa:** Clicando no ícone , pode-se excluir uma tarefa.
+- **Visualizar Data e Hora:** O aplicativo exibe a hora atual e a data para sua conveniência.
 
 ## Como Usar
 
@@ -20,6 +21,7 @@ Este é um aplicativo simples de lista de tarefas (Todo List) desenvolvido em HT
 - **HTML:** Para estruturação do conteúdo.
 - **CSS:** Para estilização dos elementos.
 - **JavaScript:** Para funcionalidades interativas.
+- **Fetch API** para comunicação com a API de backend.
 
 ## Autores
 
