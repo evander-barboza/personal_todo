@@ -16,7 +16,7 @@ let btnAtualizarTarefa = document.querySelector('#btnAtualizarTarefa');
 let idTarefaEdicao = document.querySelector('#idTarefaEdicao');
 let inputTarefaNomeEdicao = document.querySelector('#inputTarefaNomeEdicao');
 
-const API_BASE_URL = 'https://crudcrud.com/api/ad8dbc971802466b8fc26dc754738bfc';
+const API_BASE_URL = 'https://crudcrud.com/api/f554b969c6574df7943d14cf334cfb52';
 
 inputNovaTarefa.addEventListener('keypress', (e) => {
     if(e.keyCode == 13) {
@@ -38,6 +38,20 @@ btnAddTarefa.addEventListener('click', (e) => {
     adicionarTarefaAPI(tarefa);
 });
 
+inputTarefaNomeEdicao.addEventListener('keypress', (e) => {
+    if(e.keyCode == 13) {
+        e.preventDefault();
+
+        let idTarefa = idTarefaEdicao.innerHTML.replace('#', '');
+
+        let tarefa = {
+            nome: inputTarefaNomeEdicao.value,
+        }
+
+        atualizarTarefaAPI(idTarefa, tarefa);
+    }
+});
+
 btnAtualizarTarefa.addEventListener('click', (e) => {
     e.preventDefault();
 
@@ -51,6 +65,12 @@ btnAtualizarTarefa.addEventListener('click', (e) => {
 })
 
 function adicionarTarefaAPI(tarefa) {
+
+    if (!tarefa.nome.trim()) {
+        alert('Por favor, insira um nome para a tarefa.');
+        return; // Retorna sem fazer nada se o nome da tarefa estiver vazio
+    }
+
     fetch(API_BASE_URL + '/tarefas', {
         method: 'POST',
         headers: {
@@ -74,6 +94,12 @@ function carregarTarefasAPI() {
 }
 
 function atualizarTarefaAPI(id, tarefa) {
+
+    if (!tarefa.nome.trim()) {
+        alert('Por favor, insira um nome para a tarefa.');
+        return; // Retorna sem fazer nada se o nome da tarefa estiver vazio
+    }
+    
     fetch(API_BASE_URL + '/tarefas/' + id, {
         method: 'PUT',
         headers: {
@@ -102,6 +128,11 @@ function criarTagLI(tarefa) {
     let li = document.createElement('li');
     li.id = tarefa._id;
 
+    let checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.classList.add('checkboxTarefa');
+    checkbox.setAttribute('onclick', 'marcarConcluido("' + tarefa._id + '")');
+
     let span = document.createElement('span');
     span.classList.add('textoTarefa');
     span.innerHTML = tarefa.nome;
@@ -122,9 +153,23 @@ function criarTagLI(tarefa) {
     div.appendChild(btnEditar);
     div.appendChild(btnExcluir);
 
+    li.appendChild(checkbox);
     li.appendChild(span);
     li.appendChild(div);
     return li;
+}
+
+function marcarConcluido(idTarefa) {
+    let li = document.getElementById(idTarefa);
+    if (li) {
+        let checkbox = li.querySelector('.checkboxTarefa');
+        let textoTarefa = li.querySelector('.textoTarefa');
+        if (checkbox.checked) {
+            textoTarefa.style.textDecoration = 'line-through';
+        } else {
+            textoTarefa.style.textDecoration = 'none';
+        }
+    }
 }
 
 function editar(idTarefa) {
@@ -155,6 +200,52 @@ function excluirTarefaDOM(idTarefa) {
 function alternarJanelaEdicao() {
     janelaEdicao.classList.toggle('abrir');
     janelaEdicaoFundo.classList.toggle('abrir');
+}
+
+// Função para atualizar o horário
+function atualizarHorario() {
+    const hour = new Date();
+    const optionsHour = { hour: 'numeric', minute: 'numeric' };
+    document.getElementById('hour').textContent = hour.toLocaleTimeString('en-US', optionsHour);
+}
+
+// Função para atualizar a data
+function atualizarData() {
+    const date = new Date();
+    const options = { weekday: 'long', month: 'long', day: 'numeric' };
+    document.getElementById('date').textContent = date.toLocaleDateString('en-US', options);
+}
+
+// Chama a função de atualização do horário imediatamente ao carregar a página
+atualizarHorario();
+
+// Agenda a função de atualização do horário para ser chamada a cada minuto (60000 milissegundos)
+setInterval(atualizarHorario, 60000);
+
+// Chama a função de atualização da data imediatamente ao carregar a página
+atualizarData();
+
+// Agenda a função de atualização da data para ser chamada a cada 24 horas (86400000 milissegundos)
+setInterval(atualizarData, 86400000);
+
+// Função para editar uma tarefa
+function editar(idTarefa) {
+    let li = document.getElementById(idTarefa);
+    if (li) {
+        // Substituir o conteúdo de idTarefaEdicao pelo ID da tarefa
+        idTarefaEdicao.innerHTML = '#' + idTarefa;
+
+        idTarefaEdicao.style.display = 'none';
+
+        // Preencher o campo de entrada com o nome atual da tarefa
+        let nomeTarefa = li.querySelector('.textoTarefa').innerText;
+        inputTarefaNomeEdicao.value = nomeTarefa;
+
+        // Exibir a janela de edição
+        alternarJanelaEdicao();
+    } else {
+        alert('Elemento HTML não encontrado');
+    }
 }
 
 window.addEventListener('load', carregarTarefasAPI);

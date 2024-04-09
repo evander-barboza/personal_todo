@@ -5,7 +5,6 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
-    /* background-color: black; */
     margin: 0;
     font-family: "Poppins", sans-serif;
     font-size: 1rem;
@@ -27,7 +26,7 @@ body {
 }
 
 .time {
-    color: white;
+    color: darkgray;
 }
 
 .topo {
@@ -152,6 +151,11 @@ body {
     outline: none;
 }
 
+#janelaEdicaoBtnFechar:hover {
+    background-color: cadetblue;
+    color: aliceblue;
+}
+
 form {
     width: 100%;
     margin-top: 20px;
@@ -165,6 +169,7 @@ form {
 
 .frm-linha label {
     margin-bottom: 7px;
+    font-size: 28px;
 }
 
 .frm-linha input {
@@ -191,6 +196,7 @@ form {
     border: none;
 }
 
-.form-linha button:hover {
-    background-color: darkgreen;
+.frm-linha button:hover {
+    background-color: cadetblue;
+    color: aliceblue;
 }
