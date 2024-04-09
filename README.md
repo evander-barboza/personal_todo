@@ -1,6 +1,6 @@
 # Personal Todo
 
-Este é um aplicativo simples de lista de tarefas (Todo List) desenvolvido em HTML, CSS e JavaScript, projetado para auxiliar na organização das suas atividades diárias. Ele se integra a uma API de backend para armazenar as tarefas.
+Este é um aplicativo simples de lista de tarefas (Todo List) desenvolvido em formato mobile em HTML, CSS e JavaScript, projetado para auxiliar na organização das suas atividades diárias. Ele se integra a uma API de backend para armazenar as tarefas.
 
 ## Funcionalidades
 
